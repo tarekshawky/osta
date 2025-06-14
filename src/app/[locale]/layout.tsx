@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import NavBar from "./components/NavBar";
 import en from "./translations/en.json";
 import ar from "./translations/ar.json";
+import Footer from "@/app/[locale]/components/Footer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -32,6 +33,7 @@ export default async function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NavBar locale={locale} />
         {children}
+        <Footer />
         </body>
         </html>
     );

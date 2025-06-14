@@ -4,7 +4,7 @@ import Image from "next/image";
 import osta from "../../../../public/osta.jpg"
 export default function Navbar({ locale }: { locale: string }) {
     return (
-        <nav className="sticky top-0 w-full z-50 text-black bg-white">
+        <nav className="sticky top-0 w-full z-50 text-black bg-white shadow-2xl">
             <div className="container mx-auto flex justify-between items-center px-6 py-4">
                 <div className="text-xl font-bold">
                     <Link href={`/${locale}`} className="flex items-center gap-4">
