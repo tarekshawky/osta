@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+
+.primary{
+    @apply text-[#FF9803]
+}
+.secondary{
+    @apply text-[#150F3B]
+}
+.white{
+    @apply text-[#FFFFFF]
+}
+.gray-light{
+    @apply bg-[#f5f7fa]
+}
+.btn-primary{
+    @apply bg-[#FF9803] text-[#150F3B] font-bold px-8 py-4 rounded-md hover:bg-[#150F3B] hover:text-[#FFFFFF];
+}
+.bg-footer{
+    @apply bg-[#150F3B] text-[#FFFFFF]
+}
