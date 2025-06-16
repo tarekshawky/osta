@@ -25,6 +25,7 @@ export default function ContactForm() {
         const res = await fetch('/api/send', {
             method: 'POST',
             body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json' },
         });
 
         if (res.ok) {
