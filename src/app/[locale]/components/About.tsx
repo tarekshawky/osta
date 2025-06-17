@@ -1,5 +1,3 @@
-'use client';
-
 import { useTranslations } from '../utils/useTranslations';
 import Image from "next/image";
 import img from "../../../../public/osta-services.jpg"

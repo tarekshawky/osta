@@ -1,29 +1,3 @@
-// 'use client';
-//
-// import { usePathname, useRouter } from 'next/navigation';
-//
-// export default function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
-//     const router = useRouter();
-//     const pathname = usePathname();
-//
-//     const changeLocale = (newLocale: string) => {
-//         const segments = pathname.split('/');
-//         segments[1] = newLocale;
-//         router.push(segments.join('/'));
-//     };
-//
-//     return (
-//         <div className="flex items-center gap-2">
-//             <button onClick={() => changeLocale('en')} disabled={currentLocale === 'en'}>
-//                 English
-//             </button>
-//             <button onClick={() => changeLocale('ar')} disabled={currentLocale === 'ar'}>
-//                 العربية
-//             </button>
-//         </div>
-//     );
-// }
-
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';

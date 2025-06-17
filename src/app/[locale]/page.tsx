@@ -7,7 +7,7 @@ export function generateStaticParams() {
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
   return (
-    <main dir={locale === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
+    <main dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <Hero lang={locale} />
       <About lang={locale} />
       <Services lang={locale} />
