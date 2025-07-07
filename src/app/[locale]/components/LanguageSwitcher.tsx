@@ -20,7 +20,7 @@ export default function LanguageSwitcher({ currentLocale }: { currentLocale: str
     return (
         <button
             onClick={toggleLocale}
-            className="text-sm font-medium hover:underline"
+            className="text-sm font-medium hover:text-[#FF9803] cursor-pointer"
         >
             {currentLocale === 'en' ? 'العربية' : 'English'}
         </button>

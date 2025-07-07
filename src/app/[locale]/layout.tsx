@@ -1,38 +1,44 @@
 import "../globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
-import type { Metadata } from "next";
 import NavBar from "./components/NavBar";
-import en from "./translations/en.json";
-import ar from "./translations/ar.json";
-import Footer from "@/app/[locale]/components/Footer";
+import Footer from "./components/Footer";
+import type { Locale } from "@/lib/i18n";
+import I18nProvider from "@/app/i18n-provider";
+import { getT } from '@/lib/getServerTranslation';
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
-export async function generateMetadata({
-                                           params,
-                                       }: {
-    params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-    const { locale } = await params;
-    const t = locale === "ar" ? ar : en;
-    return { title: t.title, description: t.description };
+export function generateStaticParams() {
+    return [{ locale: "en" }, { locale: "ar" }];
 }
 
-export default async function RootLayout({
-                                             children,
-                                             params,
-                                         }: {
+export async function generateMetadata({ params }: { params: { locale: Locale } }) {
+    const t = await getT(params.locale);
+    return {
+        title: t("title"),
+        description: t("description"),
+        keywords: t("metaKeywords"),
+    };
+}
+
+export default async function LocaleLayout({
+                                               children,
+                                               params,
+                                           }: {
     children: React.ReactNode;
-    params: Promise<{ locale: string }>;
+    params: { locale: Locale } | Promise<{ locale: Locale }>;
 }) {
-    const { locale } = await params;
+    const resolvedParams = await params;  // <-- await here
+    const locale = resolvedParams.locale;
 
     return (
         <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NavBar locale={locale} />
-        {children}
+        <I18nProvider locale={locale}>
+            <NavBar locale={locale} />
+            {children}
+        </I18nProvider>
         <Footer />
         </body>
         </html>

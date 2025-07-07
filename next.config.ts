@@ -1,15 +1,15 @@
-import type { NextConfig } from "next";
+const { i18n } = require('./next-i18next.config');
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-    async redirects() {
-        return [
-            {
-                source: '/',
-                destination: '/en',
-                permanent: false, // or true in production
-            },
-        ];
+    images: {
+        unoptimized: true,
     },
+    // i18n: {
+    //     locales: ['en', 'ar'],
+    //     defaultLocale: 'en',
+    //     localeDetection: true,
+    // },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

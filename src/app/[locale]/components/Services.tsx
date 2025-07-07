@@ -1,3 +1,4 @@
+'use client'
 import {useTranslations} from "@/app/[locale]/utils/useTranslations";
 import PlansTabs from "@/app/[locale]/components/PlansTabs";
 
