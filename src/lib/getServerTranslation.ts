@@ -9,7 +9,7 @@ export async function getT(locale: string) {
     const file = await fs.readFile(filePath, 'utf-8');
     const translation = JSON.parse(file);
 
-    const instance = i18next.createInstance(); // create a fresh instance each time (to avoid conflicts)
+    const instance = i18next.createInstance();
 
     await instance.init({
         ...i18nConfig,
