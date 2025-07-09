@@ -11,6 +11,7 @@ export default function Services({ lang }: { lang: string }) {
                 <h2 className="text-center text-4xl font-bold secondary">{t('serviceTitle')}</h2>
             </div>
             <PlansTabs/>
+
         </section>
     )
 }

@@ -1,17 +1,3 @@
-// import en from '../translations/en.json';
-// import ar from '../translations/ar.json';
-// import type { Locale } from '@/lib/i18n'; // Make sure this type exists
-//
-// const translations: Record<Locale, Record<string, string>> = {
-//     en,
-//     ar,
-// };
-//
-// export const useTranslations = (locale: Locale) => (key: string): string => {
-//     return translations[locale]?.[key] ?? key;
-// };
-
-// src/app/[locale]/utils/useTranslations.ts
 'use client';
 
 import i18next from 'i18next';
