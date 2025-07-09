@@ -10,14 +10,14 @@ export default function Hero({ lang }: { lang: string }) {
         <div className="container mx-auto px-4 flex flex-col-reverse gap-4 lg:flex-row items-center justify-center lg:justify-between h-screen ">
             <div>
                 <h1 className="text-2xl md:text-4xl font-bold text-white md:leading-[3.5rem] lg:w-[600px]">
-                    {t('heroTitle')}
+                    {String(t('heroTitle')) }
                 </h1>
                 <div className="mt-4 flex gap-4 sm:mt-6">
                     <Link
                         className="bg-[#FF9803] text-white hover:opacity-80 font-bold px-8 py-4 rounded-md text-center"
                         href="tel:+971568676036"
                     >
-                        {t('contactNow')}
+                        {String(t('contactNow'))}
                     </Link>
                 </div>
             </div>

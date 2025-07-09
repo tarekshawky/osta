@@ -10,6 +10,7 @@ import { useTranslations } from '../utils/useTranslations';
 export default function Navbar({ locale }: { locale: string }) {
     const [scrolled, setScrolled] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
+
     const t = useTranslations(locale);
     useEffect(() => {
         const handleScroll = () => {
@@ -38,11 +39,11 @@ export default function Navbar({ locale }: { locale: string }) {
 
                     <div className="hidden md:flex items-center gap-8">
                         <Link href={`/${locale}/about-us`} className="hover:text-[#FF9803]">
-                            {t('aboutHeading')}
+                            {String(t('aboutHeading'))}
                         </Link>
                         <LanguageSwitcher currentLocale={locale} />
-                        <Link href={`/${locale}/contact`} className="bg-[#FF9803] hover:opacity-80 px-4 py-2 rounded-md text-white font-bold">
-                            {t('contactUs')}
+                        <Link href={`/${locale}/contact-us`} className="bg-[#FF9803] hover:opacity-80 px-4 py-2 rounded-md text-white font-bold">
+                            {String(t('contactUs'))}
                         </Link>
                     </div>
                     <button
@@ -61,7 +62,7 @@ export default function Navbar({ locale }: { locale: string }) {
                  `}
             >
                 <Link href={`/${locale}/about-us`} onClick={closeMenu} className="text-lg font-semibold hover:text-[#FF9803]">
-                    {t('aboutHeading')}
+                    {String(t('aboutHeading'))}
                 </Link>
                 <LanguageSwitcher currentLocale={locale} />
                 <Link
@@ -69,7 +70,7 @@ export default function Navbar({ locale }: { locale: string }) {
                     onClick={closeMenu}
                     className="rounded-md bg-[#FF9803] px-6 py-3 font-bold text-white hover:opacity-80"
                 >
-                    {t('contactUs')}
+                    {String(t('contactUs'))}
                 </Link>
             </div>
         </header>

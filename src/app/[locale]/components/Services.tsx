@@ -8,9 +8,9 @@ export default function Services({ lang }: { lang: string }) {
     return (
         <section className="container mx-auto">
             <div className="py-8">
-                <h2 className="text-center text-4xl font-bold secondary">{t('serviceTitle')}</h2>
+                <h2 className="text-center text-4xl font-bold secondary">{String(t('serviceTitle'))}</h2>
             </div>
-            <PlansTabs/>
+            <PlansTabs lang={lang}/>
 
         </section>
     )

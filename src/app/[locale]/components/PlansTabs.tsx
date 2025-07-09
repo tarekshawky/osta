@@ -1,8 +1,9 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { useTranslations } from "@/app/[locale]/utils/useTranslations";
+import { useEffect, useState } from 'react';
+import {useTranslations} from "@/app/[locale]/utils/useTranslations";
+import Link from "next/link";
+
 type Plan = {
     name: string;
     price: string;
@@ -11,79 +12,82 @@ type Plan = {
     size?: string;
     area?: string;
 };
-export default function PlansTabs() {
-    const { locale } = useParams();
-    const t = useTranslations(locale as string);
+
+export default function PlansTabs({ lang }: { lang: string }) {
+    const t = useTranslations(lang);
 
     const tabs = t('tabs') as unknown as { key: string; label: string }[];
     const [activeTab, setActiveTab] = useState<string>("");
 
     useEffect(() => {
-        if (tabs?.length > 0) {
+        if (tabs?.length > 0 && activeTab === '') {
             setActiveTab(tabs[0].key);
         }
-    }, [tabs]);
-
-    const renderCards = (plans: Plan[], type: string) => {
-        if (!plans) return null;
-
-        return (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-                {plans.map((plan, index) => (
-                    <div key={index} className="rounded-2xl border shadow-sm divide-y">
-                        <div className="p-6">
-                            <h3 className="text-lg font-semibold">{plan.name}</h3>
-                            <p className="mt-2 text-gray-700">
-                                {type === 'apartment' && (locale === 'ar' ? `عدد الغرف: ${plan.rooms}` : `Rooms: ${plan.rooms}`)}
-                                {type === 'villa' && (locale === 'ar' ? `المساحة: ${plan.size}` : `Size: ${plan.size}`)}
-                                {type === 'office' && (locale === 'ar' ? `المساحة: ${plan.area}` : `Area: ${plan.area}`)}
-                            </p>
-                            <p className="mt-2">
-                                <strong className="text-2xl">{plan.price}</strong>
-                                <span className="text-sm text-gray-600"> {t('month')}</span>
-                            </p>
-                            <a href="#" className="mt-4 inline-block bg-[#150F3B] text-white py-2 px-4 rounded-md">
-                                {t('getStarted')}
-                            </a>
-                        </div>
-                        <div className="p-6">
-                            <p className="font-medium">{t('includes')}</p>
-                            <ul className="mt-2 space-y-2 text-sm">
-                                {plan.includes.split('+').map((item: string, i: number) => (
-                                    <li key={i} className="flex items-start gap-2">
-                                        <span className="text-[#150F3B]">✓</span>
-                                        <span>{item.trim()}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
-    };
-
-    if (!tabs || !activeTab) return null;
+    }, [tabs, activeTab]);
 
     const currentPlans = t(activeTab) as unknown as Plan[];
 
+    if (!tabs || !activeTab || !currentPlans) return <div>Loading...</div>;
+
     return (
-        <section className="max-w-7xl mx-auto py-12 px-4">
-            <div className="flex flex-wrap gap-2 justify-center mb-10">
+        <div>
+            <div className="flex gap-4 mb-6 items-center justify-center">
                 {tabs.map((tab) => (
                     <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                            tab.key === activeTab ? 'bg-[#150F3B] text-white' : 'bg-gray-100 text-gray-800'
-                        }`}
+                        className={`px-4 py-2 ${activeTab === tab.key ? 'bg-black text-white' : 'bg-gray-200'}`}
                     >
                         {tab.label}
                     </button>
                 ))}
             </div>
 
-            {renderCards(currentPlans, activeTab)}
-        </section>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-8 px-4">
+                {currentPlans
+                    .filter(
+                        (plan): plan is Plan =>
+                            plan !== null &&
+                            typeof plan === 'object' &&
+                            'name' in plan &&
+                            'price' in plan &&
+                            'includes' in plan
+                    )
+                    .map((plan, idx) => (
+                        <div
+                            key={idx}
+                            className="border p-4 rounded py-8 flex flex-col gap-4 shadow-sm"
+                        >
+                            <h3 className="text-lg font-bold">{plan.name}</h3>
+                            <p className="text-gray-700 font-medium">{plan.price}</p>
+                            <p className="text-sm text-gray-600">{plan.includes}</p>
+
+                            {plan.area && (
+                                <p className="text-sm text-gray-500">
+                                    {plan.area}
+                                </p>
+                            )}
+                            {plan.rooms && (
+                                <p className="text-sm text-gray-500">
+                                    {plan.rooms}
+                                </p>
+                            )}
+                            {plan.size && (
+                                <p className="text-sm text-gray-500">
+                                    {plan.size}
+                                </p>
+                            )}
+
+                            <Link
+                                href="tel:+971568676036"
+                                className="bg-[#FF9803] text-white hover:opacity-90 font-bold px-8 py-2 rounded-md text-center mt-auto"
+                            >
+                                {String(t('contactNow'))}
+                            </Link>
+                        </div>
+                    ))}
+
+            </div>
+        </div>
     );
 }
